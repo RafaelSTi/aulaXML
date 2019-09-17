@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <form method ="post" action="liderDoCB">
+            <p>Nome: <input type = "text" name ="nomeUsuario"/></p>
+            <p>Idade: <input type = "number" name ="idadeUsuario"/></p>
+            <p><input type="submit" value="Enviar"/></p>
+        </form>
+       
+    </body>
+</html>
+
+----------------------------------------------------------------------------
+package controllers;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author aluno
+ */
+public class OlaMundo extends HttpServlet {
+
+    @Override
+    public void doGet(HttpServletRequest req,
+            HttpServletResponse res) throws IOException {
+
+        res.setContentType("text/html;charset=UTF-8");
+        try (
+                PrintWriter saida = res.getWriter()) {
+            System.out.println("TEste");
+            saida.println("<html><body>");
+            saida.println("<h1>OLA MUNDO</h1>");
+            saida.println("</body></html>");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req,
+            HttpServletResponse res) {
+
+        res.setContentType("text/html;charset=UTF-8");
+        String nome = req.getParameter("nomeUsuario");
+        String idade = req.getParameter("idadeUsuario");
+        try (
+                PrintWriter saida = res.getWriter()) {
+            saida.println("<html><body>");
+            saida.println("<h1>OLA "+nome+"</h1>");
+            saida.println("<h1>Voce tem "+idade+" anos</h1>");
+            saida.println("</body></html>");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+}
+
+-----------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	 version="3.1">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <servlet>
+        <servlet-name>SegueOlider</servlet-name>    
+        <servlet-class>controllers.OlaMundo</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SegueOlider</servlet-name>
+        <url-pattern>/liderDoCB</url-pattern>   
+        
+    </servlet-mapping>
+-------------------------------------------------------------------------------    
+    
+    package controllers;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author aluno
+ */
+@WebServlet(name = "rotaTop", urlPatterns = {"/rotaTop"})
+public class rotaTop extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet rotaTop</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet rotaTop at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+    
+    
+    
+    
+
+
